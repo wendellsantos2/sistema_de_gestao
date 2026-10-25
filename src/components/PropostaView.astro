@@ -1,0 +1,136 @@
+---
+import { PROPOSTA_COMERCIAL } from '../data/mockData';
+---
+
+<div id="view-proposta" class="view-section" style="display:none;">
+  <div class="card-panel" style="margin-bottom: 24px; border: 1px solid rgba(99, 102, 241, 0.35); background: linear-gradient(180deg, rgba(15, 23, 42, 0.95), rgba(10, 15, 29, 0.95));">
+    <div class="panel-header" style="flex-wrap: wrap; gap: 14px;">
+      <div class="panel-title-group">
+        <span class="badge-status blue" style="margin-bottom: 6px;">Documento de Resposta ao Memorial Descritivo</span>
+        <h2 style="font-size: 1.3rem;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          Proposta Técnica & Comercial (Item 11 do Edital)
+        </h2>
+        <p>Solução sob medida desenvolvida em Astro • Multiempresas • Sem taxas ocultas por licença</p>
+      </div>
+
+      <button type="button" class="btn btn-primary" onclick="window.print()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 6 2 18 2 18 9"></polyline>
+          <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+          <rect x="6" y="14" width="12" height="8"></rect>
+        </svg>
+        <span>Imprimir Proposta em PDF</span>
+      </button>
+    </div>
+
+    <!-- 1. Justificativa Tecnológica -->
+    <div style="margin-bottom: 28px;">
+      <h3 style="font-size: 1.05rem; color: #fff; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+        <span style="color: var(--primary); font-weight: 800;">1.</span> Tecnologia Recomendada & Justificativa Técnica
+      </h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+        {PROPOSTA_COMERCIAL.justificativaTecnologica.map((item) => (
+          <div style="background: var(--bg-surface-elevated); padding: 18px; border-radius: var(--radius-md); border: 1px solid var(--bg-card-border);">
+            <h4 style="color: #93c5fd; font-size: 0.92rem; font-weight: 700; margin-bottom: 6px;">{item.topico}</h4>
+            <p style="color: var(--text-muted); font-size: 0.82rem; line-height: 1.6;">{item.detalhe}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- 2. Quadro Comercial & Tabela de Preços -->
+    <div style="margin-bottom: 28px;">
+      <h3 style="font-size: 1.05rem; color: #fff; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+        <span style="color: var(--primary); font-weight: 800;">2.</span> Investimento: Implantação e Mensalidade (10 Usuários / 2 Empresas)
+      </h3>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 20px;">
+        <!-- Card Implantação -->
+        <div style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(15, 23, 42, 0.8)); border: 1px solid rgba(59, 130, 246, 0.35); border-radius: var(--radius-lg); padding: 22px;">
+          <span style="font-size: 0.72rem; text-transform: uppercase; color: #93c5fd; font-weight: 700;">Setup & Parametrização Inicial</span>
+          <div style="font-size: 2.1rem; font-weight: 800; color: #fff; margin: 8px 0;">{PROPOSTA_COMERCIAL.tabelaPrecos.fase1.implantacao.valorTotal}</div>
+          <p style="color: var(--text-muted); font-size: 0.82rem; margin-bottom: 14px; line-height: 1.5;">
+            {PROPOSTA_COMERCIAL.tabelaPrecos.fase1.implantacao.descricao}
+          </p>
+          <div style="font-size: 0.76rem; color: var(--text-dim); border-top: 1px solid var(--bg-card-border); padding-top: 10px;">
+            <strong>Condições:</strong> {PROPOSTA_COMERCIAL.tabelaPrecos.fase1.implantacao.condicoes}
+          </div>
+        </div>
+
+        <!-- Card Mensalidade -->
+        <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(15, 23, 42, 0.8)); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: var(--radius-lg); padding: 22px;">
+          <span style="font-size: 0.72rem; text-transform: uppercase; color: #6ee7b7; font-weight: 700;">Mensalidade Total Recorrente</span>
+          <div style="font-size: 2.1rem; font-weight: 800; color: #34d399; margin: 8px 0;">{PROPOSTA_COMERCIAL.tabelaPrecos.fase1.mensalidade.valorTotal}</div>
+          <p style="color: var(--text-muted); font-size: 0.82rem; margin-bottom: 14px; line-height: 1.5;">
+            {PROPOSTA_COMERCIAL.tabelaPrecos.fase1.mensalidade.descricao}
+          </p>
+          <div style="font-size: 0.76rem; color: var(--text-dim); border-top: 1px solid var(--bg-card-border); padding-top: 10px;">
+            <strong>Incluso:</strong> {PROPOSTA_COMERCIAL.tabelaPrecos.fase1.mensalidade.incluso}
+          </div>
+        </div>
+
+        <!-- Card Expansão Comercial -->
+        <div style="background: var(--bg-surface-elevated); border: 1px solid var(--bg-card-border); border-radius: var(--radius-lg); padding: 22px;">
+          <span style="font-size: 0.72rem; text-transform: uppercase; color: #a5b4fc; font-weight: 700;">Expansão & Novos Usuários / Empresas</span>
+          <ul style="list-style: none; margin: 12px 0 0 0; display: flex; flex-direction: column; gap: 10px; font-size: 0.82rem; color: var(--text-muted);">
+            <li style="display: flex; justify-content: space-between; border-bottom: 1px dashed var(--bg-card-border); padding-bottom: 6px;">
+              <span>Usuário Adicional (acima de 10):</span>
+              <strong style="color: #fff;">{PROPOSTA_COMERCIAL.tabelaPrecos.expansao.usuarioAdicional}</strong>
+            </li>
+            <li style="display: flex; justify-content: space-between; border-bottom: 1px dashed var(--bg-card-border); padding-bottom: 6px;">
+              <span>Nova Empresa Adicional:</span>
+              <strong style="color: #fff;">{PROPOSTA_COMERCIAL.tabelaPrecos.expansao.empresaAdicional}</strong>
+            </li>
+            <li style="display: flex; justify-content: space-between;">
+              <span>Horas de Desenvolvimento Futuro:</span>
+              <strong style="color: #fff;">{PROPOSTA_COMERCIAL.tabelaPrecos.expansao.personalizacoesFuturas}</strong>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Cronograma de Implantação e Treinamento -->
+    <div style="margin-bottom: 28px;">
+      <h3 style="font-size: 1.05rem; color: #fff; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+        <span style="color: var(--primary); font-weight: 800;">3.</span> Cronograma de Implantação & Treinamento (Prazo: 20 a 25 dias)
+      </h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
+        {PROPOSTA_COMERCIAL.cronogramaImplantacao.map((item) => (
+          <div style="background: var(--bg-surface-elevated); padding: 14px 16px; border-radius: var(--radius-md); border-top: 3px solid var(--primary);">
+            <span style="font-size: 0.72rem; font-weight: 700; color: #60a5fa; text-transform: uppercase;">{item.semana}</span>
+            <p style="font-size: 0.8rem; color: var(--text-main); margin-top: 4px; font-weight: 500;">{item.atividade}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- 4. Segurança, LGPD, Backup e Portabilidade -->
+    <div>
+      <h3 style="font-size: 1.05rem; color: #fff; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+        <span style="color: var(--primary); font-weight: 800;">4.</span> Governança, Políticas de Backup e Portabilidade Total
+      </h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;">
+        <div style="background: var(--bg-surface-elevated); padding: 16px; border-radius: var(--radius-md);">
+          <strong style="color: #fff; font-size: 0.88rem; display: block; margin-bottom: 4px;">SLA e Suporte</strong>
+          <p style="font-size: 0.8rem; color: var(--text-muted);">{PROPOSTA_COMERCIAL.garantiasEPoliticas.sla}</p>
+        </div>
+        <div style="background: var(--bg-surface-elevated); padding: 16px; border-radius: var(--radius-md);">
+          <strong style="color: #fff; font-size: 0.88rem; display: block; margin-bottom: 4px;">Backups Automatizados</strong>
+          <p style="font-size: 0.8rem; color: var(--text-muted);">{PROPOSTA_COMERCIAL.garantiasEPoliticas.backup}</p>
+        </div>
+        <div style="background: var(--bg-surface-elevated); padding: 16px; border-radius: var(--radius-md);">
+          <strong style="color: #fff; font-size: 0.88rem; display: block; margin-bottom: 4px;">Portabilidade & Fim de Contrato</strong>
+          <p style="font-size: 0.8rem; color: var(--text-muted);">{PROPOSTA_COMERCIAL.garantiasEPoliticas.portabilidade}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

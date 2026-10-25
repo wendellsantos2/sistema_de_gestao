@@ -1,0 +1,131 @@
+---
+---
+
+<div id="view-dp" class="view-section" style="display:none;">
+  <!-- Seletor de Sub-Abas do DP -->
+  <div style="display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid var(--bg-card-border); padding-bottom: 12px;">
+    <button type="button" class="btn btn-secondary active-subtab" id="subtabDpProntuarios" data-subtab="prontuarios" style="background: var(--bg-surface-elevated); color:#fff; border-color: var(--primary);">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+        <circle cx="9" cy="7" r="4"></circle>
+      </svg>
+      <span>Prontuários, Férias & ASO</span>
+    </button>
+
+    <button type="button" class="btn btn-secondary" id="subtabDpOcorrencias" data-subtab="ocorrencias">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+        <polyline points="14 2 14 8 20 8"></polyline>
+        <line x1="12" y1="18" x2="12" y2="12"></line>
+        <line x1="9" y1="15" x2="15" y2="15"></line>
+      </svg>
+      <span>Registro Interno de Ocorrências (Restrito)</span>
+    </button>
+  </div>
+
+  <!-- SUB-ABA 1: PRONTUÁRIOS, FÉRIAS, ASO E TREINAMENTOS -->
+  <div id="dpContentProntuarios" class="dp-subcontent">
+    <div class="card-panel">
+      <div class="panel-header" style="flex-wrap: wrap; gap: 12px;">
+        <div class="panel-title-group">
+          <h2>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <polyline points="16 11 18 13 22 9"></polyline>
+            </svg>
+            Prontuário Funcional & Prazos Trabalhistas
+          </h2>
+          <p>Acompanhamento de exames ASO, períodos aquisitivos de férias, integração e treinamentos de NRs</p>
+        </div>
+
+        <button type="button" class="btn btn-primary" id="btnNovoFuncionarioModal">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <span>Cadastrar Colaborador</span>
+        </button>
+      </div>
+
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Empresa</th>
+              <th>Colaborador / Cargo</th>
+              <th>Departamento</th>
+              <th>Admissão</th>
+              <th>Próximas Férias</th>
+              <th>Exame ASO (Validade)</th>
+              <th>Treinamentos Obrigatórios</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="dpFuncionariosTableBody">
+            <!-- Renderizado dinamicamente -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUB-ABA 2: OCORRÊNCIAS INTERNAS (ACESSO RESTRITO DP E DIRETORIA) -->
+  <div id="dpContentOcorrencias" class="dp-subcontent" style="display:none;">
+    <!-- Alerta de Restrição caso o perfil não seja autorizado -->
+    <div id="dpRestricaoAviso" style="display:none; background: var(--status-red-bg); border: 1px solid var(--status-red-border); border-radius: var(--radius-lg); padding: 18px 24px; margin-bottom: 20px;">
+      <h3 style="color: #f87171; font-size: 1rem; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+        Acesso Restrito ao Departamento Pessoal e à Diretoria (Item 4)
+      </h3>
+      <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 6px;">
+        Seu usuário atual não possui permissão para visualizar o livro de ocorrências disciplinares internas. Utilize o simulador de usuário no menu superior para alternar para um perfil de Diretoria (Carlos Mendes) ou RH/DP (Mariana Prado ou Juliana Tavares).
+      </p>
+    </div>
+
+    <div class="card-panel" id="dpOcorrenciasPanel">
+      <div class="panel-header" style="flex-wrap: wrap; gap: 12px;">
+        <div class="panel-title-group">
+          <h2>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+            </svg>
+            Registro Interno de Ocorrências Disciplinares
+          </h2>
+          <p>Atrasos, faltas, ausência de ponto biométrico e descumprimento de procedimentos (sem ciência eletrônica obrigatória nesta fase)</p>
+        </div>
+
+        <button type="button" class="btn btn-primary" id="btnNovaOcorrenciaModal">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <span>Registrar Nova Ocorrência</span>
+        </button>
+      </div>
+
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Empresa</th>
+              <th>Colaborador</th>
+              <th>Categoria</th>
+              <th>Descrição do Fato</th>
+              <th>Justificativa do Empregado</th>
+              <th>Registrado Por</th>
+              <th>Desfecho</th>
+            </tr>
+          </thead>
+          <tbody id="dpOcorrenciasTableBody">
+            <!-- Renderizado dinamicamente -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,85 @@
+---
+---
+
+<div id="view-vencimentos" class="view-section" style="display:none;">
+  <div class="card-panel" style="margin-bottom: 24px;">
+    <div class="panel-header" style="flex-wrap: wrap; gap: 14px;">
+      <div class="panel-title-group">
+        <h2>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          Módulo de Vencimentos & Renovações Preventivas (Item 7)
+        </h2>
+        <p>Ciclos automatizados: AVCB, Alvarás, Certidões, Contratos e Certificados Digitais com histórico perene</p>
+      </div>
+
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <button type="button" class="btn btn-primary" id="btnNovoVencimentoModal">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <span>Nova Obrigação</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Barra de Filtros e Pesquisa -->
+    <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; background: var(--bg-surface-elevated); padding: 12px 16px; border-radius: var(--radius-md); border: 1px solid var(--bg-card-border); align-items: center;">
+      <div style="flex: 1; min-width: 220px; position: relative;">
+        <input type="text" id="filterVencSearch" placeholder="Pesquisar por obrigação, órgão, protocolo..." class="form-control" style="width: 100%; padding-left: 34px;" />
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-dim);">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </div>
+
+      <div style="min-width: 180px;">
+        <select id="filterVencSituacao" class="form-control">
+          <option value="todas">Todas as Situações</option>
+          <option value="a_iniciar">A Iniciar</option>
+          <option value="em_andamento">Em Andamento</option>
+          <option value="aguardando_terceiros">Aguardando Terceiros</option>
+          <option value="vencido">Vencido</option>
+          <option value="concluido">Concluído</option>
+        </select>
+      </div>
+
+      <div style="min-width: 180px;">
+        <select id="filterVencTipo" class="form-control">
+          <option value="todos">Todos os Tipos</option>
+          <option value="AVCB">AVCB Bombeiros</option>
+          <option value="Alvará">Alvarás de Funcionamento</option>
+          <option value="Certificado">Certificados Digitais</option>
+          <option value="Licença">Licenças Ambientais</option>
+          <option value="CND">Certidões (CND)</option>
+          <option value="Contrato">Contratos & Seguros</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Tabela Principal de Vencimentos -->
+    <div class="table-responsive">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Empresa</th>
+            <th>Obrigação / Órgão</th>
+            <th>Responsável</th>
+            <th>Vencimento</th>
+            <th>Antecedência</th>
+            <th>Início Renovação</th>
+            <th>Situação</th>
+            <th>Ciclo</th>
+            <th style="text-align: right;">Ações de Renovação</th>
+          </tr>
+        </thead>
+        <tbody id="vencimentosFullTableBody">
+          <!-- Renderizado via script -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

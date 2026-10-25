@@ -1,0 +1,50 @@
+---
+---
+
+<div id="view-documentos" class="view-section" style="display:none;">
+  <div class="card-panel">
+    <div class="panel-header" style="flex-wrap: wrap; gap: 12px;">
+      <div class="panel-title-group">
+        <h2>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          Biblioteca de Procedimentos & Documentos Padronizados (Item 6)
+        </h2>
+        <p>Prioridade em metadados, links para o Google Drive/Servidor e controle de versão oficial vigente</p>
+      </div>
+
+      <button type="button" class="btn btn-primary" id="btnNovoDocumentoModal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        <span>+ Novo Procedimento / POP</span>
+      </button>
+    </div>
+
+    <div class="table-responsive">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Empresa</th>
+            <th>Código / Título</th>
+            <th>Departamento</th>
+            <th>Versão Oficial</th>
+            <th>Responsável</th>
+            <th>Última Revisão</th>
+            <th>Permissão de Acesso</th>
+            <th style="text-align: right;">Acesso & Histórico</th>
+          </tr>
+        </thead>
+        <tbody id="documentosTableBody">
+          <!-- Renderizado dinamicamente -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

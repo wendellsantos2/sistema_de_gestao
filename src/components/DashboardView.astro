@@ -1,0 +1,160 @@
+---
+---
+
+<div id="view-dashboard" class="view-section active">
+  <!-- Alertas Críticos no Acesso (Semáforo Visual & Notificações sem e-mail - Item 3 do Memorial) -->
+  <div class="critical-alert-banner" id="dashAlertBanner">
+    <div style="display:flex; align-items:center; gap:16px;">
+      <div class="alert-icon-box">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+          <line x1="12" y1="9" x2="12" y2="13"></line>
+          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+      </div>
+      <div class="alert-text">
+        <h3 id="dashAlertTitle">Alertas Imediatos ao Acessar o Sistema</h3>
+        <p id="dashAlertDesc">
+          Existem <strong style="color:#f87171;">2 obrigações prioritárias</strong> (Certificado Digital A1 a vencer em 8 dias; Seguro Predial com renovação em andamento) e <strong style="color:#fbbf24;">1 exame ASO periódico vencido</strong>.
+        </p>
+      </div>
+    </div>
+    <div class="alert-actions">
+      <button type="button" class="btn-alert-action" id="btnVerVencimentosUrgentes">Tratar Obrigações &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Métricas Principais com Semáforo Visual Obrigatório (Item 3 do Memorial) -->
+  <div class="metrics-grid">
+    <div class="metric-card green">
+      <div class="metric-header">
+        <span class="metric-title">Obrigações Regulares</span>
+        <div class="metric-icon" style="color: var(--status-green);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+        </div>
+      </div>
+      <div class="metric-value" id="kpiRegular">3</div>
+      <div class="metric-footer">
+        <span class="indicator green">● Regular / Concluído</span>
+        <span>• Ciclos ativos em conformidade</span>
+      </div>
+    </div>
+
+    <div class="metric-card yellow">
+      <div class="metric-header">
+        <span class="metric-title">Atenção / Em Renovação</span>
+        <div class="metric-icon" style="color: var(--status-yellow);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+      </div>
+      <div class="metric-value" id="kpiAtencao">2</div>
+      <div class="metric-footer">
+        <span class="indicator yellow">▲ Prazo de Antecedência Ativado</span>
+        <span>• AVCB & Alvará</span>
+      </div>
+    </div>
+
+    <div class="metric-card red">
+      <div class="metric-header">
+        <span class="metric-title">Atrasado / Urgente</span>
+        <div class="metric-icon" style="color: var(--status-red);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+      </div>
+      <div class="metric-value" id="kpiUrgente">2</div>
+      <div class="metric-footer">
+        <span class="indicator red">■ Ação Imediata</span>
+        <span>• Certificado A1 & Seguro</span>
+      </div>
+    </div>
+
+    <div class="metric-card blue">
+      <div class="metric-header">
+        <span class="metric-title">Tarefas Pendentes</span>
+        <div class="metric-icon" style="color: var(--primary);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 11 12 14 22 4"></polyline>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+          </svg>
+        </div>
+      </div>
+      <div class="metric-value" id="kpiTarefas">4</div>
+      <div class="metric-footer">
+        <span class="indicator" style="color:var(--primary);">3 Rotineiras</span>
+        <span>• Conclusão direta sem aprovação</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Layout Dividido: Painel de Vencimentos & Tarefas do Dia -->
+  <div class="dashboard-grid">
+    <!-- Coluna 1: Obrigações Próximas do Vencimento & Preventivas -->
+    <div class="card-panel">
+      <div class="panel-header">
+        <div class="panel-title-group">
+          <h2>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            Controle Preventivo de Vencimentos & Obrigações
+          </h2>
+          <p>Antecedência configurável com alerta antecipado para início de renovação</p>
+        </div>
+        <button type="button" class="action-btn-sm" id="btnIrParaVencimentos">Ver Todos &rarr;</button>
+      </div>
+
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Empresa</th>
+              <th>Obrigação / Tipo</th>
+              <th>Vencimento</th>
+              <th>Antecedência</th>
+              <th>Situação</th>
+              <th style="text-align:right;">Ação</th>
+            </tr>
+          </thead>
+          <tbody id="dashVencimentosTableBody">
+            <!-- Renderizado via JavaScript dinâmico -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Coluna 2: Tarefas do Dia (Conclusão Direta de Atividades Rotineiras) -->
+    <div class="card-panel">
+      <div class="panel-header">
+        <div class="panel-title-group">
+          <h2>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20h9"></path>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+            </svg>
+            Tarefas do Dia & Rotina
+          </h2>
+          <p>Conclua atividades rotineiras diretamente com 1 clique</p>
+        </div>
+        <button type="button" class="action-btn-sm" id="btnNovaTarefaRapida">+ Nova Tarefa</button>
+      </div>
+
+      <div class="task-list" id="dashTaskList">
+        <!-- Renderizado dinamicamente -->
+      </div>
+    </div>
+  </div>
+</div>

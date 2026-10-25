@@ -1,0 +1,84 @@
+---
+import { EMPRESAS_MOCK, USUARIOS_MOCK } from '../data/mockData';
+---
+
+<header class="topbar">
+  <div class="topbar-left">
+    <button type="button" class="mobile-toggle" id="btnToggleMobileSidebar" aria-label="Abrir menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+
+    <!-- Seletor de Empresa Ativa (Multiempresas) -->
+    <div class="company-selector-container">
+      <span class="company-selector-label">Empresa:</span>
+      <div class="company-tabs" id="companyTabsGroup">
+        <button type="button" class="company-btn active consolidada" data-empresa="consolidada" id="tabEmpConsolidada" title="Visão agregada de todas as empresas autorizadas">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+          </svg>
+          <span>Consolidada (Ambas)</span>
+        </button>
+
+        <button type="button" class="company-btn" data-empresa="emp_a" id="tabEmpA" title="Empresa A - Alpha Engenharia">
+          <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#3b82f6;"></span>
+          <span>Empresa A (Alpha)</span>
+        </button>
+
+        <button type="button" class="company-btn" data-empresa="emp_b" id="tabEmpB" title="Empresa B - Beta Logística">
+          <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#10b981;"></span>
+          <span>Empresa B (Beta)</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="topbar-right">
+    <!-- Simulador de Usuário / Permissões (10 Usuários do Memorial) -->
+    <div class="user-simulator-box" title="Alterne entre os 10 usuários para testar perfis de permissão e segregação">
+      <div class="user-avatar-badge" id="userAvatarBadge">CM</div>
+      <div class="user-select-field">
+        <span>Simular Login:</span>
+        <select id="userSimulatorSelect" class="user-dropdown">
+          {USUARIOS_MOCK.map((u) => (
+            <option value={u.id} data-perfil={u.perfil} data-empresas={u.empresasAutorizadas.join(',')}>
+              {u.nome} ({u.cargo.split(' ')[0]} - {u.empresasAutorizadas.length > 1 ? 'A e B' : u.empresasAutorizadas[0] === 'emp_a' ? 'Só Emp A' : 'Só Emp B'})
+            </option>
+          ))}
+        </select>
+      </div>
+    </div>
+
+    <!-- Exportar Relatório -->
+    <button type="button" class="btn-export" id="btnExportData" title="Exportar dados da visão atual em formato CSV compatível com Excel">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+        <polyline points="7 10 12 15 17 10"></polyline>
+        <line x1="12" y1="15" x2="12" y2="3"></line>
+      </svg>
+      <span>Exportar CSV</span>
+    </button>
+
+    <button type="button" class="btn-export" id="btnPrintReport" title="Imprimir Relatório Gerencial ou Salvar em PDF">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 6 2 18 2 18 9"></polyline>
+        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+        <rect x="6" y="14" width="12" height="8"></rect>
+      </svg>
+      <span>Imprimir</span>
+    </button>
+
+    <!-- Botão de Ação Rápida (+ Adicionar) -->
+    <button type="button" class="btn-quick-action" id="btnQuickAdd">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+      </svg>
+      <span>+ Novo Registro</span>
+    </button>
+  </div>
+</header>

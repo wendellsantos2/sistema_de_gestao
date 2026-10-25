@@ -1,0 +1,59 @@
+---
+import Sidebar from '../components/Sidebar.astro';
+import TopBar from '../components/TopBar.astro';
+import DashboardView from '../components/DashboardView.astro';
+import VencimentosView from '../components/VencimentosView.astro';
+import DpView from '../components/DpView.astro';
+import EpisView from '../components/EpisView.astro';
+import DocumentosView from '../components/DocumentosView.astro';
+import TarefasView from '../components/TarefasView.astro';
+import PropostaView from '../components/PropostaView.astro';
+import Modals from '../components/Modals.astro';
+import '../styles/theme.css';
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GESTÃO 360 | Sistema de Gestão Administrativa e Controle de Obrigações</title>
+    <meta name="description" content="Solução administrativa multiempresas, simples, segura e intuitiva para controle preventivo de obrigações legais, EPIs, prontuários e tarefas operacionais." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Sidebar de Navegação -->
+      <Sidebar activeTab="dashboard" />
+
+      <!-- Área de Conteúdo Principal -->
+      <div class="main-wrapper">
+        <!-- TopBar Superior com Seletor Multiempresas e Simulador de Usuário -->
+        <TopBar />
+
+        <!-- Conteúdo Renderizado com Abas -->
+        <main class="content-area">
+          <DashboardView />
+          <VencimentosView />
+          <DpView />
+          <EpisView />
+          <DocumentosView />
+          <TarefasView />
+          <PropostaView />
+        </main>
+      </div>
+    </div>
+
+    <!-- Modais de Criação, Renovação e Histórico -->
+    <Modals />
+
+    <!-- Inicialização do Controlador Client-Side -->
+    <script>
+      import { setupUI } from '../scripts/uiController.js';
+
+      document.addEventListener('DOMContentLoaded', () => {
+        setupUI();
+      });
+    </script>
+  </body>
+</html>

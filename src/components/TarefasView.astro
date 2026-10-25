@@ -1,0 +1,66 @@
+---
+---
+
+<div id="view-tarefas" class="view-section" style="display:none;">
+  <!-- Seção 1: Gestão de Tarefas Operacionais -->
+  <div class="card-panel" style="margin-bottom: 24px;">
+    <div class="panel-header" style="flex-wrap: wrap; gap: 12px;">
+      <div class="panel-title-group">
+        <h2>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 11l3 3L22 4"></path>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+          </svg>
+          Gestão de Tarefas & Fluxos Operacionais (Item 8)
+        </h2>
+        <p>Tarefas vinculadas por empresa e departamento com conclusão direta de atividades rotineiras</p>
+      </div>
+
+      <button type="button" class="btn btn-primary" id="btnNovaTarefaCompletaModal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        <span>+ Nova Tarefa</span>
+      </button>
+    </div>
+
+    <div class="task-list" id="tarefasFullList">
+      <!-- Renderizado dinamicamente com checkbox e status -->
+    </div>
+  </div>
+
+  <!-- Seção 2: Trilha de Auditoria & Histórico de Alterações Relevantes (Item 8 do Memorial) -->
+  <div class="card-panel">
+    <div class="panel-header">
+      <div class="panel-title-group">
+        <h2>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          Histórico de Alterações Relevantes & Auditoria
+        </h2>
+        <p>Rastreabilidade completa de ações com identificação de usuário, timestamp e módulo impactado</p>
+      </div>
+      <span class="badge-status blue">Auditoria Ativa</span>
+    </div>
+
+    <div class="table-responsive">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Data e Hora</th>
+            <th>Empresa</th>
+            <th>Usuário Responsável</th>
+            <th>Módulo</th>
+            <th>Ação Realizada</th>
+            <th>Detalhes do Registro</th>
+          </tr>
+        </thead>
+        <tbody id="logsAuditoriaTableBody">
+          <!-- Renderizado dinamicamente -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

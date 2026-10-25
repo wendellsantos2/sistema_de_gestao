@@ -1,0 +1,377 @@
+---
+import { EMPRESAS_MOCK, FUNCIONARIOS_MOCK, USUARIOS_MOCK } from '../data/mockData';
+---
+
+<!-- 1. MODAL: NOVA OBRIGAÇÃO / VENCIMENTO -->
+<div class="modal-overlay" id="modalNovoVencimento">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Cadastrar Obrigação / Vencimento Preventivo</h3>
+      <button type="button" class="modal-close-btn" data-close-modal>&times;</button>
+    </div>
+    <form id="formNovoVencimento">
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Empresa Vinculada</label>
+            <select name="empresaId" class="form-control" required>
+              <option value="emp_a">Empresa A (Alpha Engenharia)</option>
+              <option value="emp_b">Empresa B (Beta Logística)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Tipo de Obrigação</label>
+            <input type="text" name="tipo" placeholder="Ex: AVCB, Alvará, Certificado Digital..." class="form-control" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Descrição do Item</label>
+          <input type="text" name="descricao" placeholder="Ex: Renovação anual da licença municipal..." class="form-control" required />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Responsável</label>
+            <input type="text" name="responsavel" placeholder="Ex: Rodrigo Lima (SESMT)" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label>Departamento</label>
+            <select name="departamento" class="form-control">
+              <option value="SESMT / Segurança">SESMT / Segurança</option>
+              <option value="Administrativo">Administrativo</option>
+              <option value="Departamento Pessoal">Departamento Pessoal</option>
+              <option value="Jurídico / Compliance">Jurídico / Compliance</option>
+              <option value="Diretoria Executiva">Diretoria Executiva</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Data de Vencimento</label>
+            <input type="date" name="dataVencimento" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label>Antecedência de Aviso (Dias)</label>
+            <input type="number" name="antecedenciaDias" value="45" min="1" max="180" class="form-control" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Órgão Emissor / Concessionária</label>
+            <input type="text" name="orgaoEmissor" placeholder="Ex: Cetesb, Prefeitura, Bombeiros..." class="form-control" />
+          </div>
+          <div class="form-group">
+            <label>Nº de Protocolo / Processo</label>
+            <input type="text" name="numeroProtocolo" placeholder="Ex: PROC-2026-991" class="form-control" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Link da Pasta / Documento no Drive ou Servidor</label>
+          <input type="url" name="linkDocumentoDrive" placeholder="https://drive.google.com/..." class="form-control" />
+        </div>
+
+        <div class="form-group">
+          <label>Observações Adicionais</label>
+          <textarea name="observacoes" rows="2" placeholder="Instruções para a equipe de renovação..." class="form-control"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-close-modal>Cancelar</button>
+        <button type="submit" class="btn btn-primary">Salvar Obrigação</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- 2. MODAL: RENOVAÇÃO DE CICLO DE OBRIGAÇÃO (Item 7) -->
+<div class="modal-overlay" id="modalRenovarCiclo">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Renovar Ciclo de Obrigação Preventiva</h3>
+      <button type="button" class="modal-close-btn" data-close-modal>&times;</button>
+    </div>
+    <form id="formRenovarCiclo">
+      <input type="hidden" id="renovarVencimentoId" name="vencimentoId" />
+      <div class="modal-body">
+        <div style="background: var(--bg-surface-elevated); padding: 12px 16px; border-radius: var(--radius-md); border-left: 4px solid var(--primary); margin-bottom: 8px;">
+          <strong id="renovarObrigacaoNome" style="color: #fff; font-size: 0.95rem;">-</strong>
+          <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">
+            Validade Atual: <span id="renovarValidadeAtual" style="color: #f87171; font-weight: 700;">-</span> • Ciclo Atual: <span id="renovarCicloNum">1</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nova Data de Vencimento</label>
+            <input type="date" name="novaValidade" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label>Custo / Taxa de Renovação</label>
+            <input type="text" name="custoOuTaxa" placeholder="Ex: R$ 850,00 ou Gratuito" class="form-control" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Responsável pela Homologação do Ciclo</label>
+          <input type="text" name="responsavel" id="renovarResponsavelInput" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+          <label>Novo Link no Servidor / Drive da Certidão Renovada</label>
+          <input type="url" name="novoLinkDrive" placeholder="https://drive.google.com/..." class="form-control" />
+        </div>
+
+        <div class="form-group">
+          <label>Observações do Novo Ciclo</label>
+          <textarea name="observacoes" rows="2" placeholder="Ex: Parecer favorável emitido pelos bombeiros. Nova vistoria agendada para o ciclo seguinte." class="form-control"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-close-modal>Cancelar</button>
+        <button type="submit" class="btn btn-success">Concluir & Gerar Próximo Ciclo</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- 3. MODAL: REGISTRAR NOVA OCORRÊNCIA DISCIPLINAR -->
+<div class="modal-overlay" id="modalNovaOcorrencia">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Registro Interno de Ocorrência Disciplinar</h3>
+      <button type="button" class="modal-close-btn" data-close-modal>&times;</button>
+    </div>
+    <form id="formNovaOcorrencia">
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Empresa</label>
+            <select name="empresaId" id="ocorrenciaEmpresaSelect" class="form-control" required>
+              <option value="emp_a">Empresa A (Alpha Engenharia)</option>
+              <option value="emp_b">Empresa B (Beta Logística)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Data do Fato</label>
+            <input type="date" name="data" value="2026-10-25" class="form-control" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Colaborador</label>
+            <select name="funcionarioId" id="ocorrenciaFuncionarioSelect" class="form-control" required>
+              {FUNCIONARIOS_MOCK.map((f) => (
+                <option value={f.id} data-nome={f.nome} data-empresa={f.empresaId}>{f.nome} ({f.cargo})</option>
+              ))}
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Categoria da Ocorrência</label>
+            <select name="categoria" class="form-control" required>
+              <option value="Atraso">Atraso</option>
+              <option value="Falta Não Justificada">Falta Não Justificada</option>
+              <option value="Ausência de Marcação de Ponto">Ausência de Marcação de Ponto</option>
+              <option value="Descumprimento de Procedimento / EPI">Descumprimento de Procedimento / EPI</option>
+              <option value="Outros">Outros</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Descrição Detalhada do Ocorrido</label>
+          <textarea name="descricao" rows="2" placeholder="Relato fático do ocorrido, horário e testemunhas..." class="form-control" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Justificativa Apresentada pelo Colaborador</label>
+          <textarea name="justificativa" rows="2" placeholder="Manifestação ou declaração do colaborador..." class="form-control"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Status / Desfecho Inicial</label>
+          <select name="status" class="form-control">
+            <option value="Em Análise">Em Análise</option>
+            <option value="Justificado">Justificado</option>
+            <option value="Advertência Verbal">Advertência Verbal</option>
+            <option value="Advertência Escrita">Advertência Escrita</option>
+            <option value="Arquivado">Arquivado</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-close-modal>Cancelar</button>
+        <button type="submit" class="btn btn-primary">Registrar Ocorrência</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- 4. MODAL: NOVO EPI / MOVIMENTAÇÃO -->
+<div class="modal-overlay" id="modalNovoEpi">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Nova Entrega / Movimentação de EPI</h3>
+      <button type="button" class="modal-close-btn" data-close-modal>&times;</button>
+    </div>
+    <form id="formNovoEpi">
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Empresa</label>
+            <select name="empresaId" class="form-control" required>
+              <option value="emp_a">Empresa A (Alpha)</option>
+              <option value="emp_b">Empresa B (Beta)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Colaborador Custodiante</label>
+            <select name="funcionarioId" class="form-control" required>
+              {FUNCIONARIOS_MOCK.map((f) => (
+                <option value={f.id} data-nome={f.nome}>{f.nome} ({f.cargo})</option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Nome do Equipamento (EPI)</label>
+          <input type="text" name="nome" placeholder="Ex: Protetor Auditivo tipo Concha, Luva de Vaqueta..." class="form-control" required />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nº do CA (Certificado de Aprovação)</label>
+            <input type="text" name="caNumero" placeholder="Ex: 35791" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label>Validade do CA (MTE)</label>
+            <input type="date" name="validadeCa" class="form-control" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Tipo de Movimentação</label>
+            <select name="tipoMovimentacao" class="form-control" required>
+              <option value="Entrega Inicial">Entrega Inicial</option>
+              <option value="Troca por Desgaste">Troca por Desgaste</option>
+              <option value="Substituição Programada">Substituição Programada</option>
+              <option value="Registro de Dano">Registro de Dano</option>
+              <option value="Perda / Extravio">Perda / Extravio</option>
+              <option value="Devolução">Devolução</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Data da Movimentação</label>
+            <input type="date" name="dataMovimentacao" value="2026-10-25" class="form-control" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Motivo / Observações da Entrega</label>
+          <input type="text" name="motivo" placeholder="Ex: Substituição programada semestral..." class="form-control" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-close-modal>Cancelar</button>
+        <button type="submit" class="btn btn-primary">Registrar Movimentação</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- 5. MODAL: NOVA TAREFA OPERACIONAL -->
+<div class="modal-overlay" id="modalNovaTarefa">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Cadastrar Nova Tarefa Operacional</h3>
+      <button type="button" class="modal-close-btn" data-close-modal>&times;</button>
+    </div>
+    <form id="formNovaTarefa">
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Empresa</label>
+            <select name="empresaId" class="form-control" required>
+              <option value="emp_a">Empresa A (Alpha)</option>
+              <option value="emp_b">Empresa B (Beta)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Departamento</label>
+            <select name="departamento" class="form-control">
+              <option value="Administrativo">Administrativo</option>
+              <option value="Departamento Pessoal">Departamento Pessoal</option>
+              <option value="SESMT / Segurança">SESMT / Segurança</option>
+              <option value="Operações / Logística">Operações / Logística</option>
+              <option value="Jurídico / Compliance">Jurídico / Compliance</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Título da Tarefa</label>
+          <input type="text" name="titulo" placeholder="Ex: Solicitar cotação de recarga de extintores..." class="form-control" required />
+        </div>
+
+        <div class="form-group">
+          <label>Descrição / Instruções</label>
+          <textarea name="descricao" rows="2" placeholder="Detalhes da ação operacional..." class="form-control"></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Responsável</label>
+            <input type="text" name="responsavel" placeholder="Ex: Camila Duarte Ramos" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label>Prazo Limite</label>
+            <input type="date" name="prazo" class="form-control" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Prioridade</label>
+            <select name="prioridade" class="form-control">
+              <option value="alta">Alta Prioridade</option>
+              <option value="media" selected>Média</option>
+              <option value="baixa">Baixa</option>
+            </select>
+          </div>
+          <div class="form-group" style="display:flex; flex-direction:column; justify-content:center;">
+            <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+              <input type="checkbox" name="eAtividadeRotineira" value="true" checked style="width:18px; height:18px;" />
+              <span>Atividade Rotineira (Conclusão Direta)</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-close-modal>Cancelar</button>
+        <button type="submit" class="btn btn-primary">Salvar Tarefa</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- 6. MODAL: DETALHES E HISTÓRICO DE AUDITORIA/RENOVAÇÃO -->
+<div class="modal-overlay" id="modalHistoricoDetalhes">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modalHistoricoTitulo">Histórico de Registros</h3>
+      <button type="button" class="modal-close-btn" data-close-modal>&times;</button>
+    </div>
+    <div class="modal-body" id="modalHistoricoConteudo">
+      <!-- Conteúdo inserido dinamicamente via JS -->
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-close-modal>Fechar</button>
+    </div>
+  </div>
+</div>
